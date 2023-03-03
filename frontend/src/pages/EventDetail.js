@@ -9,6 +9,7 @@ import {
 
 import EventItem from '../components/EventItem';
 import EventsList from '../components/EventsList';
+import { getAuthToken } from '../utils/auth';
 
 function EventDetailPage() {
   const { event, events } = useRouteLoaderData('event-detail');
@@ -17,12 +18,12 @@ function EventDetailPage() {
     <>
       <Suspense fallback={<p style={{ textAlign: 'center' }}>Loading...</p>}>
         <Await resolve={event}>
-          {(loadedEvent) => <EventItem event={loadedEvent} />}
+          {loadedEvent => <EventItem event={loadedEvent} />}
         </Await>
       </Suspense>
       <Suspense fallback={<p style={{ textAlign: 'center' }}>Loading...</p>}>
         <Await resolve={events}>
-          {(loadedEvents) => <EventsList events={loadedEvents} />}
+          {loadedEvents => <EventsList events={loadedEvents} />}
         </Await>
       </Suspense>
     </>
@@ -76,10 +77,19 @@ export async function loader({ request, params }) {
   });
 }
 
+// Action to delete an event
 export async function action({ params, request }) {
   const eventId = params.eventId;
+
+  // Get token from util function
+  const token = getAuthToken();
+
   const response = await fetch('http://localhost:8080/events/' + eventId, {
     method: request.method,
+    headers: {
+      // Set headers to delete event based on token
+      'Authorization': 'Bearer ' + token,
+    },
   });
 
   if (!response.ok) {

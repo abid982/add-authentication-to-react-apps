@@ -96,6 +96,17 @@ export async function action({ request, params }) {
     throw json({ message: 'Could not authenticate user.' }, { status: 500 });
   }
 
+  // Extract token from response
+  const resData = await response.json();
+  console.log('Result data:');
+  console.log(resData);
+  const token = resData.token;
+  console.log('Token:');
+  console.log(token);
+
+  // Store token
+  localStorage.setItem('token', token);
+
   // Now if we make it past all these steps here the user creation or signup did succeed.
   // Soon: Manage that token
 
@@ -103,36 +114,21 @@ export async function action({ request, params }) {
   // So once the user logged in redirect the user to homepage
   return redirect('/');
 
-  //   And if we now try to create a user,
-
+  // And if we now try to create a user,
   // with the same email as before, the password does not matter.
-
   // But if it's the same email as before,
-
   // you will see if I click save, nothing happens.
-
   // The reason for that is that, behind the scenes,
-
   // we're actually getting authentication errors,
-
   // because the backend checks
-
   // if a user with that email exists already,
-
   // and if that's the case,
-
   // it sends back an authentication error,
-
   // with status code 422.
-
   // And therefore,
-
   // now we just want to handle this on the frontend,
-
   // to show an appropriate error message,
-
   // because it's all working as it should,
-
   // but we are not giving the user the feedback
   // he or she should be getting.
 }
