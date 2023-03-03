@@ -19,12 +19,12 @@ function NewsletterSignup() {
       action="/newsletter"
       className={classes.newsletter}
     >
-      <input
+      {/* <input
         type="email"
         placeholder="Sign up for newsletter..."
         aria-label="Sign up for newsletter"
       />
-      <button>Sign up</button>
+      <button>Sign up</button> */}
     </fetcher.Form>
   );
 }

@@ -4,7 +4,7 @@ import PageContent from '../components/PageContent';
 function NewsletterPage() {
   return (
     <PageContent title="Join our awesome newsletter!">
-      <NewsletterSignup />
+      {/* <NewsletterSignup /> */}
     </PageContent>
   );
 }
