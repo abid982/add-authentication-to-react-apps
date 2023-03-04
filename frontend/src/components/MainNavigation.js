@@ -60,6 +60,7 @@ function MainNavigation() {
             </NavLink>
           </li>
           <li>
+            {/* Trigger an action */}
             <Form action="/logout" method="post">
               <button>Logout</button>
             </Form>

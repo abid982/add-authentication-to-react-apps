@@ -49,6 +49,7 @@ export async function action({ request, params }) {
   console.log(data);
 
   const password = data.get('password');
+  console.log(password);
 
   const authData = {
     email: data.get('email'),

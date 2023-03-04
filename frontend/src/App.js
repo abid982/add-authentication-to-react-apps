@@ -69,6 +69,7 @@ const router = createBrowserRouter([
         action: newsletterAction,
       },
       {
+        // Logout route
         path: 'logout',
         action: logoutAction,
       },

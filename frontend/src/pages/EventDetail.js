@@ -82,13 +82,15 @@ export async function action({ params, request }) {
   const eventId = params.eventId;
 
   // Get token from util function
+  // To get token from function
   const token = getAuthToken();
 
   const response = await fetch('http://localhost:8080/events/' + eventId, {
+    // The format backend is looking for
     method: request.method,
     headers: {
       // Set headers to delete event based on token
-      'Authorization': 'Bearer ' + token,
+      Authorization: 'Bearer ' + token,
     },
   });
 
