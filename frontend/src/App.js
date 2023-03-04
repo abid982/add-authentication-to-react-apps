@@ -17,12 +17,19 @@ import AuthenticationPage, {
   action as authAction,
 } from './pages/Authentication';
 import { action as logoutAction } from './pages/Logout';
+// Loader to load token from utils folder
+import { loader as tokenLoader } from './utils/auth';
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <RootLayout />,
     errorElement: <ErrorPage />,
+    // Loader to load token
+    // In order to use data from that loader and easily get access to it assign an id to this route
+    // In main navigation use useRouteLoaderData() Hook to get token
+    id: 'root',
+    loader: tokenLoader,
     children: [
       { index: true, element: <HomePage /> },
       {

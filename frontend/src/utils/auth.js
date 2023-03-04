@@ -4,3 +4,9 @@ export function getAuthToken() {
   // More code later
   return token;
 }
+
+export function loader() {
+  console.log('Loader function:');
+  console.log(getAuthToken());
+  return getAuthToken();
+}

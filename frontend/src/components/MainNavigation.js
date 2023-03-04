@@ -1,9 +1,13 @@
-import { NavLink, Form } from 'react-router-dom';
+import { NavLink, Form, useRouteLoaderData } from 'react-router-dom';
 
 import classes from './MainNavigation.module.css';
 import NewsletterSignup from './NewsletterSignup';
 
 function MainNavigation() {
+  // useRouteLoaderData() Hook to get token from loader of root route and updating UI based on token
+  const token = useRouteLoaderData('root');
+  console.log('Token: ' + token);
+
   return (
     <header className={classes.header}>
       <nav>
@@ -49,22 +53,27 @@ function MainNavigation() {
               Authentication
             </NavLink>
           </li> */}
-          <li>
-            <NavLink
-              to="/auth?mode=login"
-              className={({ isActive }) =>
-                isActive ? classes.active : undefined
-              }
-            >
-              Authentication
-            </NavLink>
-          </li>
-          <li>
-            {/* Trigger an action */}
-            <Form action="/logout" method="post">
-              <button>Logout</button>
-            </Form>
-          </li>
+          {!token && (
+            <li>
+              <NavLink
+                to="/auth?mode=login"
+                className={({ isActive }) =>
+                  isActive ? classes.active : undefined
+                }
+              >
+                Authentication
+              </NavLink>
+            </li>
+          )}
+          {/* If we have a token */}
+          {token && (
+            <li>
+              {/* Trigger an action */}
+              <Form action="/logout" method="post">
+                <button>Logout</button>
+              </Form>
+            </li>
+          )}
         </ul>
       </nav>
       <NewsletterSignup />
